@@ -1,10 +1,13 @@
 
 const PrimaryKeys = {
-  "truong": ["ma_truong"],                                // Trường học
-  "vai_tro": ["ma_vai_tro"],                              // Vai trò người dùng
-  "nguoi_dung": ["ma_nguoi_dung"],                        // Người dùng
-  "tai_khoan": ["ma_nguoi_dung"],                         // Tài khoản (dùng chung mã người dùng)
 
+  // "nguoi_dung": ["ma_nguoi_dung"],                        // Người dùng
+  // "tai_khoan": ["ma_nguoi_dung"],                         // Tài khoản (dùng chung mã người dùng)
+
+
+  //"truong": ["ma_truong"],                                // Trường học
+  "vai_tro": ["ma_vai_tro"],                              // Vai trò người dùng
+  "nguoi_dung_toan_quoc": ["ma_nguoi_dung"],                        // Người dùng
   "doi_bong": ["ma_doi_bong"],                            // Đội bóng
   "vi_tri_cau_thu": ["ma_vi_tri"],                        // Vị trí cầu thủ
   "cau_thu": ["ma_cau_thu"],                              // Cầu thủ
@@ -25,18 +28,21 @@ const PrimaryKeys = {
   "tran_dau": ["ma_tran_dau"],                            // Trận đấu
   "su_kien_tran_dau": ["ma_su_kien"],                     // Sự kiện trận đấu
 
-  // "bang_xep_hang_vong_dau": ["ma_giai_dau", "ma_vong_dau", "ma_doi_bong"], // BXH vòng đấu
+  "bang_xep_hang_vong_dau": ["ma_giai_dau", "ma_vong_dau", "ma_doi_bong"], // BXH vòng đấu
   "quy_tac_tinh_diem": ["ma_giai_dau", "ma_vong_dau"],    // Quy tắc tính điểm
   "cau_hinh_giao_dien": ["ma_cau_hinh_giao_dien"],                // Cấu hình giao diện người dùng
   "yeu_cau_tao_giai_dau": ["ma_yeu_cau"],
 };
 
 const PrimaryKeys_not_token = {
-  "truong": ["ma_truong"],                                // Trường học
-  "vai_tro": ["ma_vai_tro"],                              // Vai trò người dùng
-  "nguoi_dung": ["ma_nguoi_dung"],                        // Người dùng
-  "tai_khoan": ["ma_nguoi_dung"],                         // Tài khoản (dùng chung mã người dùng)
 
+  // "nguoi_dung": ["ma_nguoi_dung"],                        // Người dùng
+  // "tai_khoan": ["ma_nguoi_dung"],                         // Tài khoản (dùng chung mã người dùng)
+
+
+  //"truong": ["ma_truong"],                                // Trường học
+  "vai_tro": ["ma_vai_tro"],                              // Vai trò người dùng
+  "nguoi_dung_toan_quoc": ["ma_nguoi_dung"],                        // Người dùng
   "doi_bong": ["ma_doi_bong"],                            // Đội bóng
   "vi_tri_cau_thu": ["ma_vi_tri"],                        // Vị trí cầu thủ
   "cau_thu": ["ma_cau_thu"],                              // Cầu thủ
@@ -57,13 +63,19 @@ const PrimaryKeys_not_token = {
   "tran_dau": ["ma_tran_dau"],                            // Trận đấu
   "su_kien_tran_dau": ["ma_su_kien"],                     // Sự kiện trận đấu
 
-  // "bang_xep_hang_vong_dau": ["ma_giai_dau", "ma_vong_dau", "ma_doi_bong"], // BXH vòng đấu
+  "bang_xep_hang_vong_dau": ["ma_giai_dau", "ma_vong_dau", "ma_doi_bong"], // BXH vòng đấu
   "quy_tac_tinh_diem": ["ma_giai_dau", "ma_vong_dau"],    // Quy tắc tính điểm
   "cau_hinh_giao_dien": ["ma_cau_hinh_giao_dien"],                // Cấu hình giao diện người dùng
   "yeu_cau_tao_giai_dau": ["ma_yeu_cau"],
 };
 
+const PrimaryKeys_phanTan = {
+  "nguoi_dung": ["ma_nguoi_dung"],                        // Người dùng
+  "tai_khoan": ["ma_nguoi_dung"],
+}
+
 
 
 export default PrimaryKeys;
 export { PrimaryKeys_not_token };
+export { PrimaryKeys_phanTan };

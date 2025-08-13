@@ -20,7 +20,10 @@ export async function viewTbody(data, onEdit, onDelete) {
     tableBody.innerHTML = "";
     for (const item of data) {
         const row = document.createElement("tr");
-        const data1VaiTro = await hamChung.layThongTinTheo_ID("vai_tro", item.ma_vai_tro);
+        console.log(item);
+        const data1NguoiDungToanQuoc = await hamChung.layThongTinTheo_ID("nguoi_dung_toan_quoc", item.ma_nguoi_dung);
+        console.log(data1NguoiDungToanQuoc);
+        const data1VaiTro = await hamChung.layThongTinTheo_ID("vai_tro", data1NguoiDungToanQuoc.ma_vai_tro);
         row.innerHTML = `
             <td style="text-align: center;">${item.ma_nguoi_dung}</td>
             <td style="text-align: center;">${item.ten_dang_nhap}</td>

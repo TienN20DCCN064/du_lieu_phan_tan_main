@@ -1,4 +1,5 @@
 import hamChung from "/frontend/mvc/model/global/model.hamChung.js";
+import hamDLPT from "/frontend/mvc/model/global/model.hamDLPT.js";
 //C:\Users\vanti\Desktop\mvc_project\frontend\mvc\controller\EditFormData.controller.js
 import FORM from "/frontend/mvc/controller/EditFormData.controller.js";
 export function getElementIds() {
@@ -6,7 +7,8 @@ export function getElementIds() {
         btnLuuThayDoi: document.getElementById("button_luu"),
         btnTaiLaiTrang: document.getElementById("button_taiLaiTrang"),
         maNguoiDung: document.getElementById("maNguoiDung"),
-        maTruong: document.getElementById("maTruong"),
+        maMien: document.getElementById("maMien"),
+        maVaiTro: document.getElementById("maVaiTro"),
         hoTen: document.getElementById("hoTen"),
         gioiTinh: document.getElementById("gioiTinh"),
         email: document.getElementById("email"),
@@ -14,37 +16,60 @@ export function getElementIds() {
         ngaySinh: document.getElementById("ngaySinh"),
         form: document.getElementById("inputForm"),
         tableBody: document.getElementById("dataTable"),
-        maTruong_chon_viewbody: document.getElementById("maTruong_chon_viewbody"),
-        gioiTinh_chon_viewbody: document.getElementById("gioiTinh_chon_viewbody"),
+        maMien_chon_viewbody: document.getElementById("maMien_chon_viewbody"),
+        // gioiTinh_chon_viewbody: document.getElementById("gioiTinh_chon_viewbody"),
     };
 }
 
+async function getMien_theo_maNguoiDung(maNguoDung) {
+    const data1NguoiDungToanQuoc = await hamChung.layThongTinTheo_ID("nguoi_dung_toan_quoc", maNguoDung);
+    return data1NguoiDungToanQuoc.ma_mien;
+}
 export async function viewTbody(data, onEdit, onDelete) {
-    const { tableBody, maTruong_chon_viewbody, gioiTinh_chon_viewbody } = getElementIds();
-     if (maTruong_chon_viewbody && maTruong_chon_viewbody.value === "not_truong") {
-        data = data.filter(item => !item.ma_truong);
+    const { tableBody, maMien_chon_viewbody } = getElementIds();
+    //  if (maMien_chon_viewbody && maMien_chon_viewbody.value === "not_truong") {
+    //     data = data.filter(item => !item.ma_truong);
+    // }
+    console.log(data);
+    let data_theoMien = [];
+
+    if (maMien_chon_viewbody && maMien_chon_viewbody.value !== "All") {
+        data_theoMien = [];
+        for (const item of data) {
+            const mienNguoiDung = await getMien_theo_maNguoiDung(item.ma_nguoi_dung);
+            if (mienNguoiDung === maMien_chon_viewbody.value) {
+                data_theoMien.push(item);
+            }
+        }
+    } else {
+        // Nếu chọn All thì giữ nguyên dữ liệu
+        data_theoMien = data;
     }
-    else if (maTruong_chon_viewbody && maTruong_chon_viewbody.value !== "All") {
-        data = data.filter(item => item.ma_truong === maTruong_chon_viewbody.value);
-    }
-   
-    if (gioiTinh_chon_viewbody && gioiTinh_chon_viewbody.value !== "All") {
-        data = data.filter(item => item.gioi_tinh === gioiTinh_chon_viewbody.value);
-    }
+
+
+    // if (gioiTinh_chon_viewbody && gioiTinh_chon_viewbody.value !== "All") {
+    //     data = data.filter(item => item.gioi_tinh === gioiTinh_chon_viewbody.value);
+    // }
     tableBody.innerHTML = "";
 
-    for (const item of data) {
-        let tenTruong = "---";
-        if(item.ma_truong) {
-            const data1Truong = await hamChung.layThongTinTheo_ID("truong", item.ma_truong);
-            tenTruong = data1Truong.ten_truong ?? "---";
+    for (const item of data_theoMien) {
+        let tenMien = "---";
+        let tenVaiTro = "---";
+        const data1NguoiDungToanQuoc = await hamChung.layThongTinTheo_ID("nguoi_dung_toan_quoc", item.ma_nguoi_dung);
+        if (data1NguoiDungToanQuoc.ma_mien) {
+            tenMien = data1NguoiDungToanQuoc.ma_mien;
+        }
+        if (data1NguoiDungToanQuoc.ma_vai_tro) {
+            const data1VaiTro = await hamChung.layThongTinTheo_ID("vai_tro", data1NguoiDungToanQuoc.ma_vai_tro);
+            tenVaiTro = data1VaiTro.ten_vai_tro;
         }
         // console.log("item", item.ngay_sinh);
         // console.log("formattedDate", FORM.formatDateT_to_Date(item.ngay_sinh));
         const row = document.createElement("tr");
         row.innerHTML = `
             <td style="text-align: center;">${item.ma_nguoi_dung}</td>
-            <td>${tenTruong}</td>
+            <td>${tenMien}</td>
+            <td>${tenVaiTro}</td>
             <td>${item.ho_ten ?? "---"}</td>
             <td>${item.gioi_tinh ?? "---"}</td>
             <td>${item.email ?? "---"}</td>
@@ -60,10 +85,15 @@ export async function viewTbody(data, onEdit, onDelete) {
     }
 }
 
-export function fillForm(item) {
-    const { maNguoiDung, maTruong, hoTen, gioiTinh, email, soDienThoai, ngaySinh } = getElementIds();
+export async function fillForm(item) {
+    const { maNguoiDung, maMien, hoTen, gioiTinh, email, soDienThoai, ngaySinh } = getElementIds();
+    const maMien_theoNguoiDung = await getMien_theo_maNguoiDung(item.ma_nguoi_dung);
+    const data1NguoiDungToanQuoc = await hamChung.layThongTinTheo_ID("nguoi_dung_toan_quoc", item.ma_nguoi_dung);
+
     maNguoiDung.value = item.ma_nguoi_dung;
-    maTruong.value = item.ma_truong;
+    console.log(maMien_theoNguoiDung);
+    maMien.value = maMien_theoNguoiDung;
+    maVaiTro.value = data1NguoiDungToanQuoc.ma_vai_tro;
     hoTen.value = item.ho_ten;
     gioiTinh.value = item.gioi_tinh;;
     email.value = item.email;
@@ -72,26 +102,29 @@ export function fillForm(item) {
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-export async function loadDanhSachTruong() {
-    const selectElement = document.getElementById("maTruong");
-    selectElement.innerHTML = '<option value="">-- Chọn Trường --</option>';
-    const data = await hamChung.layDanhSach("truong");
-    data.forEach(item => {
+export async function loadDanhSachMien() {
+    const selectElement = document.getElementById("maMien");
+    selectElement.innerHTML = '<option value="">-- Chọn Miền --</option>';
+    const dataMien = await hamDLPT.get_danh_sach_mien();
+    const dataMien_hoatDong = dataMien.filter(item => item.status === "Đang chạy");
+    console.log(dataMien_hoatDong);
+    dataMien_hoatDong.forEach(item => {
         const option = document.createElement("option");
-        option.value = item.ma_truong;
-        option.textContent = `${item.ma_truong} - ${item.ten_truong}`;
+        option.value = item.value;
+        option.textContent = `${item.value} - ${item.name}`;
         selectElement.appendChild(option);
     });
 }
-export async function loadDanhSachTruong_chon_viewbody() {
-    const selectElement = document.getElementById("maTruong_chon_viewbody");
-    selectElement.innerHTML = '<option value="All">-- All trường --</option>';
-    selectElement.innerHTML += '<option value="not_truong">-- Không thuộc trường nào --</option>';
-    const data = await hamChung.layDanhSach("truong");
-    data.forEach(item => {
+export async function loadDanhSachMien_chon_viewbody() {
+    const selectElement = document.getElementById("maMien_chon_viewbody");
+    selectElement.innerHTML = '<option value="All">-- Chọn Miền --</option>';
+    const dataMien = await hamDLPT.get_danh_sach_mien();
+    const dataMien_hoatDong = dataMien.filter(item => item.status === "Đang chạy");
+    console.log(dataMien_hoatDong);
+    dataMien_hoatDong.forEach(item => {
         const option = document.createElement("option");
-        option.value = item.ma_truong;
-        option.textContent = `${item.ma_truong} - ${item.ten_truong}`;
+        option.value = item.value;
+        option.textContent = `${item.value} - ${item.name}`;
         selectElement.appendChild(option);
     });
 }

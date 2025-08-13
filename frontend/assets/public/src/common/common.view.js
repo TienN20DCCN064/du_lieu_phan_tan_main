@@ -27,7 +27,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 // Hàm để chuyển hướng người dùng đến trang tương ứng với vai trò
 async function redirectToRolePage(role_web) {
-    const data1TaiKhoan = await hamChung.layThongTinTheo_ID("tai_khoan", GlobalStore.getUsername());
+    console.log("role_web:", role_web);
+    console.log("GlobalStore.getUsername():", GlobalStore.getUsername());
+
+    const data1TaiKhoan = await hamChung.layThongTinTheo_ID("nguoi_dung_toan_quoc", GlobalStore.getUsername());
 
     if (!data1TaiKhoan.ma_nguoi_dung) {
         window.location.href = "/frontend/mvc/view/view_html/trang_chung/dangNhap.html";
@@ -38,12 +41,12 @@ async function redirectToRolePage(role_web) {
             return;
         }
         if (data1TaiKhoan.ma_vai_tro === "VT01" && role_web === "quanly_doiBong") {
-           // console.log("redirect to quanly_admin");
+            // console.log("redirect to quanly_admin");
             window.location.href = "/frontend/mvc/view/view_html/quanly_admin/trang_chu.html";
             return;
         }
         if (data1TaiKhoan.ma_vai_tro === "VT02" && role_web === "quanly_admin") {
-         //   console.log("redirect to quanly_doiBong");
+            //   console.log("redirect to quanly_doiBong");
             window.location.href = "/frontend/mvc/view/view_html/quanly_doiBong/trang_chu.html";
             return;
         }

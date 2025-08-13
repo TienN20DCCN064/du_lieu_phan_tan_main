@@ -46,14 +46,20 @@ async function check_dangNhap(event) {
 
   const res_json = await hamChung.dangNhap(formData);
   console.log("Kết quả đăng nhập:", res_json);
+
   if (!res_json) {
     thongBao.thongBao_error(`Đăng nhập thất bại. Vui lòng kiểm tra lại tài khoản hoặc mật khẩu.`, null, "error");
     return;
   }
   else {
 
-    const user = res_json.user;
-    if(user.trang_thai === "Bị khóa") {
+
+    const data = res_json.data;
+    const user = data.user;
+    console.log(res_json);
+    console.log(data);
+    // return;
+    if (user.trang_thai === "Bị khóa") {
       thongBao.thongBao_error(`Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị viên để biết thêm chi tiết.`, null, "error");
       return;
     }
@@ -64,14 +70,31 @@ async function check_dangNhap(event) {
     await dangNhap_chuyenTrang(user);
 
   }
+  // phân tán nên phần này phải check ở main
   async function dangNhap_chuyenTrang(user) {
 
+    // console.log(user)
+    // if (user.ma_vai_tro === "VT01") {
+    //   window.location.href = "/frontend/mvc/view/view_html/quanly_admin/trang_chu.html";
+    // }
+    // else if (user.ma_vai_tro === "VT02") {
+    //   await layDanhSachDoiBong_theoQuanLy(user.ma_nguoi_dung);
+    //   // window.location.href = "/frontend/mvc/view/view_html/quanly/doi_bong/quanLyDoiBong.html";
+    // }
+    // else {
+    //   alert("Vai trò không hợp lệ");
+    //   return;
+    // }
 
     console.log(user)
-    if (user.ma_vai_tro === "VT01") {
+    const data1NguoiDung_toanQuoc = await hamChung.layThongTinTheo_ID("nguoi_dung_toan_quoc", user.ma_nguoi_dung);
+    console.log("Thông tin người dùng:", data1NguoiDung_toanQuoc);
+    const vaiTro = data1NguoiDung_toanQuoc.ma_vai_tro;
+    console.log("Vai trò của người dùng:", vaiTro);
+    if (vaiTro === "VT01") {
       window.location.href = "/frontend/mvc/view/view_html/quanly_admin/trang_chu.html";
     }
-    else if (user.ma_vai_tro === "VT02") {
+    else if (vaiTro === "VT02") {
       await layDanhSachDoiBong_theoQuanLy(user.ma_nguoi_dung);
       // window.location.href = "/frontend/mvc/view/view_html/quanly/doi_bong/quanLyDoiBong.html";
     }

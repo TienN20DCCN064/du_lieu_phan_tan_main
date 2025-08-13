@@ -1,8 +1,15 @@
-const congAPI = 4002;
+// const congAPI = 4002;
+const congAPI_ALL = 4000;
+const congAPI_BAC = 4001; // Phần người dùng bắc
+const congAPI_TRUNG = 4002; // Phần người dùng trung
+const congAPI_NAM = 4003; // Phần người dùng nam
+
+
+
 const congAPI_image = 5000;
 const congAPI_taoTranDau = 5001;
 const congAPI_gmail = 5002; // Phần tạo trận đấu
-const IPv4_Address = "192.168.2.140";
+const IPv4_Address = "192.168.1.37";
 // const linkCongAPI = "http://localhost:" + congAPI + "/api/";
 // ex : http://192.168.1.136:4002/api
 // ex : http://localhost:4002/api
@@ -23,14 +30,24 @@ export const GlobalStore = {
     },
 
     getCongAPI() {
-        return congAPI;
+        return congAPI_ALL;
     },
 
     getLinkCongAPI() {
-        return "http://" + IPv4_Address + ":" + congAPI + "/api/";
+        return "http://" + IPv4_Address + ":" + congAPI_ALL + "/api/";
     },
+    getLinkCongApi_bac() {
+        return "http://" + IPv4_Address + ":" + congAPI_BAC + "/api/";
+    },
+    getLinkCongApi_trung() {
+        return "http://" + IPv4_Address + ":" + congAPI_TRUNG + "/api/";
+    },
+    getLinkCongApi_nam() {
+        return "http://" + IPv4_Address + ":" + congAPI_NAM + "/api/";
+    },
+
     getLinkCongApi_notToken() {
-        return "http://" + IPv4_Address + ":" + congAPI + "/api_not_token/";
+        return "http://" + IPv4_Address + ":" + congAPI_ALL + "/api_not_token/";
     },
     getLinkCongApi_image() {
         // http://
@@ -57,7 +74,7 @@ export const GlobalStore = {
     // getRole(){
     //     return localStorage.getItem("role");
     // }
-    
+
 
 
 };
