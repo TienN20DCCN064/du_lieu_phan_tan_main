@@ -6,7 +6,7 @@
 
 ## 🎥 Video demo
 
-Xem video hướng dẫn tại: [![Video demo](https://youtu.be/ffPvfxuJsqw/0.jpg)](https://youtu.be/ffPvfxuJsqw)
+Xem video hướng dẫn tại: [![Video demo](https://img.youtube.com/vi/ffPvfxuJsqw/0.jpg)](https://www.youtube.com/watch?v=ffPvfxuJsqw)
 
 ---
 
