@@ -17,16 +17,21 @@ export function getElementIds() {
 
 export async function viewTbody(data, onEdit, onDelete) {
     const { tableBody } = getElementIds();
+    let maMien = "---";
     tableBody.innerHTML = "";
     for (const item of data) {
         const row = document.createElement("tr");
         console.log(item);
         const data1NguoiDungToanQuoc = await hamChung.layThongTinTheo_ID("nguoi_dung_toan_quoc", item.ma_nguoi_dung);
+        if(data1NguoiDungToanQuoc.ma_mien){
+            maMien = data1NguoiDungToanQuoc.ma_mien;
+        }
         console.log(data1NguoiDungToanQuoc);
         const data1VaiTro = await hamChung.layThongTinTheo_ID("vai_tro", data1NguoiDungToanQuoc.ma_vai_tro);
         row.innerHTML = `
             <td style="text-align: center;">${item.ma_nguoi_dung}</td>
             <td style="text-align: center;">${item.ten_dang_nhap}</td>
+            <td style="text-align: center;">${maMien}</td>
             <td style="text-align: center;">****</td>
             <td style="text-align: center;">${item.trang_thai == "Hoạt động" ? "Hoạt Động" : "Bị Khóa"}</td>
             <td style="text-align: center;">${data1VaiTro.ten_vai_tro}</td>
@@ -43,12 +48,13 @@ export async function viewTbody(data, onEdit, onDelete) {
 
 export async function fillForm(item) {
     const { maNguoiDung, tenDangNhap, matKhau, trangThai, maVaiTro, ngayTao } = getElementIds();
+    const data1nguoiDungToanQuoc = await hamChung.layThongTinTheo_ID("nguoi_dung_toan_quoc", item.ma_nguoi_dung);
     await loadDanhSachNguoiDung();
     maNguoiDung.value = item.ma_nguoi_dung;
     tenDangNhap.value = item.ten_dang_nhap;
     matKhau.value = item.mat_khau;
     trangThai.value = item.trang_thai;
-    maVaiTro.value = item.ma_vai_tro;
+    maVaiTro.value = data1nguoiDungToanQuoc.ma_vai_tro;
     ngayTao.value = FORM.formatDateT_to_Date(item.ngay_tao);
     maNguoiDung.setAttribute("disabled", true);
     tenDangNhap.setAttribute("disabled", true);

@@ -55,21 +55,31 @@ export async function viewTbody(data, onEdit, onDelete) {
     for (const item of data_theoMien) {
         let tenMien = "---";
         let tenVaiTro = "---";
+        let tenDangNhap = "---";
         const data1NguoiDungToanQuoc = await hamChung.layThongTinTheo_ID("nguoi_dung_toan_quoc", item.ma_nguoi_dung);
-        if (data1NguoiDungToanQuoc.ma_mien) {
-            tenMien = data1NguoiDungToanQuoc.ma_mien;
+        const data1TaiKhoan = await hamChung.layThongTinTheo_ID("tai_khoan", item.ma_nguoi_dung);
+        if (data1NguoiDungToanQuoc) {
+            if (data1NguoiDungToanQuoc.ma_mien) {
+                tenMien = data1NguoiDungToanQuoc.ma_mien;
+            }
+            if (data1NguoiDungToanQuoc.ma_vai_tro) {
+                const data1VaiTro = await hamChung.layThongTinTheo_ID("vai_tro", data1NguoiDungToanQuoc.ma_vai_tro);
+                tenVaiTro = data1VaiTro.ten_vai_tro;
+            }
         }
-        if (data1NguoiDungToanQuoc.ma_vai_tro) {
-            const data1VaiTro = await hamChung.layThongTinTheo_ID("vai_tro", data1NguoiDungToanQuoc.ma_vai_tro);
-            tenVaiTro = data1VaiTro.ten_vai_tro;
+        if (data1TaiKhoan.ma_nguoi_dung) {
+            console.log(data1TaiKhoan);
+            tenDangNhap = data1TaiKhoan.ten_dang_nhap;
         }
         // console.log("item", item.ngay_sinh);
         // console.log("formattedDate", FORM.formatDateT_to_Date(item.ngay_sinh));
         const row = document.createElement("tr");
         row.innerHTML = `
             <td style="text-align: center;">${item.ma_nguoi_dung}</td>
+            <td>${tenDangNhap}</td>
             <td>${tenMien}</td>
             <td>${tenVaiTro}</td>
+            
             <td>${item.ho_ten ?? "---"}</td>
             <td>${item.gioi_tinh ?? "---"}</td>
             <td>${item.email ?? "---"}</td>

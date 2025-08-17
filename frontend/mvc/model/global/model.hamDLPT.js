@@ -15,7 +15,19 @@ const hamDLPT = {
     async sua_nguoiDung(formData) {
         return await sua_nguoiDung(formData);
     },
+    async formXoa_nguoiDung(formData) {
+        return await formXoa_nguoiDung(formData);
+    },
 
+    async them(data, table_name) {
+        return await them(data, table_name)
+    },
+    async sua(data, table_name) {
+        return await sua(data, table_name)
+    },
+    async xoa(keys, table_name) {
+        return await xoa(keys, table_name);
+    },
 };
 
 async function fetchCoToken(url, options = {}) {
@@ -80,7 +92,7 @@ async function them_nguoiDung(formData) {
 
 
 async function sua_nguoiDung(formData) {
-
+    const data1TaiKhoan = await hamChung.layThongTinTheo_ID("tai_khoan", formData.ma_nguoi_dung);
     const form_nguoiDung_mien = {
         ma_mien: formData.ma_mien,
 
@@ -100,6 +112,12 @@ async function sua_nguoiDung(formData) {
         ma_nguoi_dung: formData.ma_nguoi_dung,
         ma_mien: formData.ma_mien,
     }
+    const formXoa_taiKhoan = {
+        ma_nguoi_dung: formData.ma_nguoi_dung,
+        ma_mien: formData.ma_mien,
+    }
+    const formThem_taiKhoan = data1TaiKhoan;
+
 
     console.log(formData);
     console.log(form_nguoiDung_mien);
@@ -123,9 +141,19 @@ async function sua_nguoiDung(formData) {
         // thêm dữ liệu xong sau đó mới xóa
 
         formXoa_nguoiDung.ma_mien = data1NguoiDungToanQuoc.ma_mien;
+        formThem_taiKhoan.ma_mien = formData.ma_mien;
         console.log(formXoa_nguoiDung);
+        console.log(formThem_taiKhoan);
+        // cập nhật người dùng sang table khác
+        await xoa(formXoa_taiKhoan, "tai_khoan");
         await xoa(formXoa_nguoiDung, "nguoi_dung");
+
         await them(form_nguoiDung_mien, "nguoi_dung");
+        await them(formThem_taiKhoan, "tai_khoan");
+        // cập nhật tài khoản
+
+
+
 
     }
     // trường hợp mã miền không đổi
@@ -136,7 +164,9 @@ async function sua_nguoiDung(formData) {
     await hamChung.sua(form_nguoiDung_toanQuoc, "nguoi_dung_toan_quoc");
     return 1;
 }
+async function formXoa_nguoiDung(formData) {
 
+}
 
 
 
@@ -219,6 +249,9 @@ async function sua(data, table_name) {
 
 async function xoa(keys, table_name) {
     const primaryKeys_phanTan = PrimaryKeys_phanTan[table_name];
+    console.log("table_name:", table_name);
+    console.log("PrimaryKeys_phanTan:", PrimaryKeys_phanTan);
+    console.log("primaryKeys_phanTan:", PrimaryKeys_phanTan[table_name]);
 
     if (!primaryKeys_phanTan) {
         console.error(`Bảng ${table_name} không hợp lệ.`);

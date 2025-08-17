@@ -62,9 +62,17 @@ async function handleDelete(item) {
         alert("Người dùng hiện không tìm thấy theo miền !");
         return;
     }
-
-
-
+    // lấy ra tài khoản nếu có tài khoản thì ko được xóa
+    const data1taiKhoan = await hamChung.layThongTinTheo_ID("tai_khoan", item.ma_nguoi_dung);
+    console.log(data1taiKhoan);
+    if(!data1taiKhoan.message){
+        alert("Người dùng này đã có tài khoản, không thể xóa!");
+        return;
+    }
+    // if (data1taiKhoan.message) {
+    //     alert("Tài khoản hiện không tìm thấy !");
+    //     return;
+    // }
 
     if (confirm(`Bạn có chắc chắn muốn xóa người dùng ${item.ma_nguoi_dung}?`)) {
         await hamDLPT.xoa(form__xoa_nguoiDung_mien, "nguoi_dung");
@@ -172,7 +180,7 @@ async function handleLuuThayDoi(event) {
 
     }
 
-    //    load_viewTbody();
+    await load_viewTbody();
 }
 
 function handleTaiLaiTrang(event) {

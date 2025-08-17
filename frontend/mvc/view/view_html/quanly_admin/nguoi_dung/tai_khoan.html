@@ -19,7 +19,7 @@
 
 <body class="sb-nav-fixed">
     <div id="chen"></div>
-        <script type="module" src="/frontend/assets/public/src/common/common.view.js"></script>
+    <script type="module" src="/frontend/assets/public/src/common/common.view.js"></script>
     <style>
         #layoutSidenav_content {
             margin-left: 200px;
@@ -45,6 +45,13 @@
                             <input type="text" class="form-control" id="tenDangNhap" required />
                         </div>
                         <div class="col-md-3">
+                            <label class="font-weight-bold">Vai Trò</label>
+                            <select class="form-control" id="maVaiTro" required disabled>
+                                <option value="VT02">Quản Lý</option>
+                                <option value="VT01">ADMIN</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
                             <label class="font-weight-bold">Mật Khẩu</label>
                             <input type="password" class="form-control" id="matKhau" required />
                         </div>
@@ -55,12 +62,7 @@
                                 <option value="Bị khóa">Bị Khóa</option>
                             </select>
                         </div>
-                        <div class="col-md-3">
-                            <label class="font-weight-bold">Mã Vai Trò</label>
-                            <select class="form-control" id="maVaiTro" required>
-                                <option value="">-- Chọn Vai Trò --</option>
-                            </select>
-                        </div>
+
                         <div class="col-md-3">
                             <label class="font-weight-bold">Ngày Tạo</label>
                             <input type="date" class="form-control" id="ngayTao" required />
@@ -84,6 +86,7 @@
                                 <tr>
                                     <th style="text-align: center;">Mã Người Dùng</th>
                                     <th style="text-align: center;">Tên Đăng Nhập</th>
+                                    <th style="text-align: center;">Miền</th>
                                     <th style="text-align: center;">Mật Khẩu</th>
                                     <th style="text-align: center;">Trạng Thái</th>
                                     <th style="text-align: center;">Vai Trò</th>
@@ -96,6 +99,7 @@
                                 <tr>
                                     <th style="text-align: center;">Mã Người Dùng</th>
                                     <th style="text-align: center;">Tên Đăng Nhập</th>
+                                    <th style="text-align: center;">Miền</th>
                                     <th style="text-align: center;">Mật Khẩu</th>
                                     <th style="text-align: center;">Trạng Thái</th>
                                     <th style="text-align: center;">Vai Trò</th>

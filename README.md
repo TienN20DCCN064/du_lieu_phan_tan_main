@@ -6,7 +6,7 @@
 
 ## 🎥 Video demo
 
-Xem video hướng dẫn tại: [![Video demo](https://img.youtube.com/vi/kNEQzcXxYTs/0.jpg)](https://www.youtube.com/watch?v=kNEQzcXxYTs)
+Xem video hướng dẫn tại: [![Video demo](https://youtu.be/ffPvfxuJsqw/0.jpg)](https://youtu.be/ffPvfxuJsqw)
 
 ---
 
@@ -54,12 +54,12 @@ python -m pip install cloudinary
   ipconfig lấy IPv4 Address. . . . . . . . . . . : 192.168.1.40
   Vào file : backend\services\global\global.js  
    Cập nhật : const IPv4_Address = "192.168.1.40";
-- Chạy API  
-   Mở terminal và chạy: cd "C:\Users\vanti\Desktop\tt\quan_ly_tran_dau\service\"
-  node api.js
-  python api_gmail.py
-  python api_image.py
-  python api_taoTranDau.py
-                <<  Sửa lại 2 file api gmail với image >>
+##### 🧱 Chạy API 
+   Mở terminal và chạy: cd đến thưc mục chưa API : C:\Users\vanti\Desktop\mvc_prj_phanTan\du_lieu_phan_tan_main\thuc_tap_co_so\backend\api_nguoi_dung_bac.js
+  
+  node api_nguoi_dung_all_all.js
+  node api_nguoi_dung_bac.js
+  node api_nguoi_dung_trung.js
+  node api_nguoi_dung_nam.js
 
 <!-- // test -->
