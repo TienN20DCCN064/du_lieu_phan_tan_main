@@ -1,3 +1,21 @@
+# Hệ Thống Quản Lý Giải Đấu Bóng Đá (Dự Án Cá Nhân)
+
+## 1. Thông tin dự án
+- **Tên dự án:** Hệ thống quản lý giải đấu bóng đá phân tán người dùng Bắc - Trung - Nam 
+- **Loại dự án:** Dự án cá nhân, Full-stack  
+- **Mục tiêu:** Xây dựng hệ thống quản lý giải đấu bóng đá theo mô hình phân tán theo miền (Bắc – Trung – Nam), tối ưu hiệu suất xử lý và giảm tải cơ sở dữ liệu trung tâm.
+
+
+## 2. Thành viên
+- **Lê Văn Tiến** – 1 thành viên duy nhất  
+  - Mã số sinh viên: N20DCCN064  
+  - Email học tập: n20dccn064@student.ptithcm.edu.vn  
+  - Gmail cá nhân: vantien18122002@gmail.com  
+  - Vai trò: Thiết kế, lập trình Backend, Frontend, Database, triển khai toàn bộ hệ thống.
+
+
+
+
 # 🏆 API - Quản Lý Giải Đấu Bóng Đá
 
 Đây là service backend viết bằng Node.js và MySQL, phục vụ cho Mini App quản lý giải đấu bóng đá. Hướng dẫn dưới đây giúp bạn cài đặt và cấu hình server để chạy trên máy cục bộ và cho phép máy khác trong cùng mạng LAN truy cập được.
